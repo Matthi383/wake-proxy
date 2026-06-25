@@ -1,4 +1,6 @@
 # wake-proxy
+WAKE. ROUTE. CONNECT.
+A lightweight Wake-on-LAN proxy server.
 
 wake-proxy is a small, lightweight Wake-on-LAN (WOL) proxy service designed to remotely power on devices inside a private network (e.g. home lab servers, NAS, or services like Immich) and optionally forward requests once the target system is online.
 
