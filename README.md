@@ -19,18 +19,19 @@ It is especially useful for setups where servers are kept in standby and only st
 
 ## 🧩 Use Case Example
 
-- A server, where your service e.g. is running, is powered off to save energy
+- A server hosting a service (e.g. Immich) is powered off to save energy
 - User opens photo app remotely
 - wake-proxy sends WOL packet to server
 - Server boots up
 - Request is forwarded once service is ready
-- User only notices a small latency until service is online + if a timeout comes up a small refresh is required to access the service
+- The user experiences only a short initial delay while the service starts up; if a timeout occurs, a simple retry is sufficient.
 
 ---
 
 ## 🧱 Project Phases
 
-### Phase 1 – Core WOL Proxy <-- CURRENT
+### Phase 1 – Core WOL Proxy (current)
+_Currently in development_
 - Basic HTTP API
 - MAC address registry
 - Wake-on-LAN implementation
