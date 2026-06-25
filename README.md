@@ -1,7 +1,4 @@
 # wake-proxy
-A small reverse proxy that is used to wake devices via Wake-on-LAN on demand, waits for readiness, and transparently routes traffic by domain. Ideal for homelab and self-hosted multi-service environments
-
-# wake-proxy
 
 wake-proxy is a small, lightweight Wake-on-LAN (WOL) proxy service designed to remotely power on devices inside a private network (e.g. home lab servers, NAS, or services like Immich) and optionally forward requests once the target system is online.
 
