@@ -1,4 +1,6 @@
 # config/devices.yaml
+
+# example
 devices:
   immich:
     mac: "AA:BB:CC:DD:EE:FF"
