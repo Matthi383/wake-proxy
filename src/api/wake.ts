@@ -1,35 +1,41 @@
 import { FastifyInstance } from "fastify";
-import { loadConfig } from "../core/config";
-import { wakeDevice } from "../core/wol";
+import { loadDevicesConfig } from "../core/config";
+import { WakeService } from "../services/wakeService";
+import { DeviceNotFoundError } from "../errors/deviceNotFoundError";
 
-export async function wakeRoutes(app: FastifyInstance) {
+export async function wakeRoutes(
+  app: FastifyInstance,
+  options: {
+    wakeService: WakeService
+  }
+) {
 
-  app.post("/:device", async (request, reply) => {
+  app.post("/:deviceName", async (request, reply) => {
 
-    const config = loadConfig();
+    const config = loadDevicesConfig();
 
-    const { device } = request.params as {
-      device: string;
+    const { deviceName } = request.params as {
+      deviceName: string;
     };
 
-    const target = config.devices[device];
-
-    if (!target) {
-      return reply.status(404).send({
-        error: "Device not found"
-      });
-    }
-
     try {
-      await wakeDevice(target.mac);
+      await options.wakeService.wake(deviceName);
 
-      return {
-        device,
+      return reply.status(202).send({
+        device: deviceName,
         status: "waking",
         message: "Wake-on-LAN packet sent"
-      };
+      });
 
     } catch (err) {
+      request.log.error(err);
+
+      if (err instanceof DeviceNotFoundError) {
+        return reply.status(404).send({
+          error: err.message
+        });
+      }
+
       return reply.status(500).send({
         error: "Failed to send WOL packet"
       });

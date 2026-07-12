@@ -1,7 +1,7 @@
-// src/types/device.ts
 export type Device = {
   mac: string;
-  ip: string;
+  host?: string;
+  broadcast?: string;
   port?: number;
   healthcheck?: string;
 };

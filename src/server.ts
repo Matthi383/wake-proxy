@@ -1,22 +1,11 @@
-import Fastify from "fastify";
-import { routes } from "./api/routes";
+import { WakeProxyApp } from "./app";
+import { WakeService } from "./services/wakeService";
 
-const app = Fastify({
-  logger: true
-});
+const app = new WakeProxyApp(
+  "0.0.0.0",
+  8080,
+  true,
+  new WakeService()
+);
 
-await app.register(routes);
-
-const PORT = 8080;
-
-app.listen({
-  port: PORT,
-  host: "0.0.0.0"
-})
-.then(() => {
-
-  console.log(
-    `wake-proxy running on port ${PORT}`
-  );
-
-});
+app.start();
