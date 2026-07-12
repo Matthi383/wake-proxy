@@ -1,11 +1,11 @@
 // src/api/wake.ts
-import { Router } from "express";
+import Fastify from "fastify";
 import { loadConfig } from "../core/config";
 import { wakeDevice } from "../core/wol";
 
-export const wakeRouter = Router();
+export const wakeApp = Fastify();
 
-wakeRouter.post("/:device", async (req, res) => {
+wakeApp.post("/:device", async (req, res) => {
   const config = loadConfig();
   const deviceName = req.params.device;
 
