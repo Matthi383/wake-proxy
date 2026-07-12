@@ -1,7 +1,14 @@
-// src/api/routes.ts
-import { wakeRouter } from "./wake";
-import { Router } from "express";
+import { FastifyInstance } from "fastify";
+import { wakeRoutes } from "./wake";
+import { healthRoutes } from "./health";
 
-export const routes = Router();
 
-routes.use("/wake", wakeRouter);
+export async function routes(app: FastifyInstance) {
+
+  await app.register(healthRoutes);
+
+  await app.register(wakeRoutes, {
+    prefix: "/wake"
+  });
+
+}
